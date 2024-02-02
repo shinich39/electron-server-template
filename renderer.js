@@ -1,0 +1,1 @@
+const { invoke, send, receive } = window.electron;

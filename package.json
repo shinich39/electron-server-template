@@ -1,0 +1,92 @@
+{
+  "name": "electron-server-template",
+  "version": "1.0.0",
+  "description": "Expresss server with electron.",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "test": "node ./server.js",
+    "start": "electron .",
+    "build:osx": "electron-builder --mac",
+    "build:mac": "electron-builder --mac",
+    "build:win32": "electron-builder --win --ia32",
+    "build:win64": "electron-builder --win --x64",
+    "build:linux": "electron-builder --linux",
+    "unlink": "rimraf .git"
+  },
+  "build": {
+    "productName": "Electron Server Template",
+    "appId": "com.electron.servertemplate",
+    "asar": false,
+    "protocols": {
+      "name": "Electron Server Template",
+      "schemes": [
+        "electronservertemplate"
+      ]
+    },
+    "mac": {
+      "target": [
+        "zip",
+        "dmg"
+      ],
+      "icon": "./resources/icons/512x512.png"
+    },
+    "dmg": {
+      "title": "Electron Server Template",
+      "icon": "./resources/icons/512x512.png"
+    },
+    "win": {
+      "target": [
+        "zip",
+        "nsis",
+        "portable"
+      ],
+      "requestedExecutionLevel": "requireAdministrator",
+      "icon": "./resources/icons/256x256.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "installerIcon": "./resources/icons/256x256.ico"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "./resources/icons/256x256.png"
+    },
+    "directories": {
+      "buildResources": "./resources/",
+      "output": "./dist/",
+      "app": "."
+    }
+  },
+  "keywords": [
+    "electron"
+  ],
+  "author": "shinich39 <shinich39@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shinich39/electron-server-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shinich39/electron-server-template/issues"
+  },
+  "homepage": "https://github.com/shinich39/electron-server-template#readme",
+  "devDependencies": {
+    "electron": "^28.1.3",
+    "electron-builder": "^24.6.4"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1"
+  }
+}
