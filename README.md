@@ -5,7 +5,7 @@ Expresss server with electron.
 ## Installation
 
 ```console
-git clone https://github.com/shinich39/electron-application-template.git && cd electron-application-template && npm install && npm run unlink && npm uninstall mkdirp rimraf
+git clone https://github.com/shinich39/electron-server-template.git && cd electron-server-template && npm install && npm run unlink && npm uninstall mkdirp rimraf
 ```
 
 ## Icons
