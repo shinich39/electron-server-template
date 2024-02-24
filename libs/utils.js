@@ -2,8 +2,6 @@ import {
   app,
   BrowserWindow,
   dialog,
-  ipcMain,
-  shell,
   Menu,
 } from 'electron';
 
@@ -30,19 +28,19 @@ const _ = {
   crashDumpsPath: app.getPath("crashDumps"),
 }
 
-export function isMac() {
+function isMac() {
   return _.isMac;
 }
 
-export function isWin() {
+function isWin() {
   return _.isWin;
 }
 
-export function isLinux() {
+function isLinux() {
   return _.isLinux;
 }
 
-export function getPath() {
+function getPath() {
   return {
     documents: _.documentsPath,
     desktop: _.desktopPath,
@@ -65,19 +63,23 @@ export function getPath() {
   }
 }
 
-export function getPid() {
+function getPid() {
   return _.pid;
 }
 
-export function getWindow() {
-  return BrowserWindow.getFocusedWindow() || BrowserWindow.getAllWindows()[0];
-}
-
-export function setEventLimit(n) {
+function setEventLimit(n) {
   require('events').EventEmitter.defaultMaxListeners = n || 10; // default 10
 }
 
-export function alert(title, message) {
+function getFocusedWindow() {
+  return BrowserWindow.getFocusedWindow();
+}
+
+function getWindows() {
+  return BrowserWindow.getAllWindows();
+}
+
+function alert(title, message) {
   if (!message) {
     dialog.showMessageBoxSync({
       message: title
@@ -90,7 +92,7 @@ export function alert(title, message) {
   }
 }
 
-export async function confirm(title, message) {
+async function confirm(title, message) {
   if (!message) {
     const { response } = await dialog.showMessageBox({
       type: 'info',
@@ -115,23 +117,7 @@ export async function confirm(title, message) {
   }
 }
 
-export function send(channel, data) {
-  const win = getWindow();
-  if (!win) {
-    throw new Error("Window not found");
-  }
-  win.webContents.send(channel, data);
-}
-
-export function receive(channel, listener) {
-  ipcMain.on(channel, listener);
-}
-
-export function handle(channel, listener) {
-  ipcMain.handle(channel, listener);
-}
-
-export function setMenu() {
+function setMenu() {
   const menu = _.isMac ? {
     [app.name]: [
       { role: 'about' },
@@ -249,4 +235,18 @@ export function setMenu() {
   const template = Menu.buildFromTemplate(tmp);
 
   Menu.setApplicationMenu(template);
+}
+
+export default {
+  isMac: isMac,
+  isWin: isWin,
+  isLinux: isLinux,
+  getPath: getPath,
+  getPid: getPid,
+  setEventLimit: setEventLimit,
+  getWindows: getWindows,
+  getFocusedWindow: getFocusedWindow,
+  alert: alert,
+  confirm: confirm,
+  setMenu: setMenu,
 }
